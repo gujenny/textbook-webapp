@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <h1>Have a book to sell?</h1>
+    <form action="/sell" method="post" enctype=multipart/form-data>
+        <div class="form-group">
+            <!-- source for making sure user can only input positive integer: https://stackoverflow.com/questions/8808590/html5-number-input-type-that-takes-only-integers/17208628 -->
+            <input autocomplete="off" autofocus class="form-control" name="isbn" placeholder="ISBN (numerical digits)" min="1" step="1" type="number" required>
+        </div>
+        <div class="form-group">
+            $ <input autocomplete="off" class="form-control" name="price" placeholder="Price" required>
+        </div>
+        <div class="form-group">
+            <select class="custom-select form-control" name="quality" required>
+              <option disabled selected required>Quality</option>
+              {% for level in ["poor","fair","good","excellent","new"] %}
+                  <option value={{level}}>{{level}}</option>
+              {% endfor %}
+            </select>
+        </div>
+        <!-- source for image upload: https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_input_accept -->
+        <div class="form-group">
+            <h5>Upload a picture of your books' cover</h5>
+            <input class="form-control" name="coverimage" type="file" accept="image/*">
+        </div>
+        <button class="btn btn-primary" type="submit" value=Upload>Put up for Sale!</button>
+    </form>
+{% endblock %}

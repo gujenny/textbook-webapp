@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+
+    <form action="/register" method="post">
+        <div class="form-group">
+            <input type="text" autocomplete="off" autofocus class="form-control" name="user" placeholder="Username" required>
+        </div>
+
+        <!-- sources for searchable dropdown menu: https://select2.org/getting-started/installation, https://select2.org/getting-started/basic-usage, https://stackoverflow.com/questions/36712967/single-dropdown-with-search-box-in-it -->
+        <select class="js-example-basic-single" style="width: 19.5%" name="college">
+            <option value="" disabled selected>College/University</option>
+            <!-- https://stackoverflow.com/questions/7761032/messed-up-option-in-select-tag-when-value-contains-more-than-one-word -->
+            {% for school in schools %}
+                <!-- source: https://stackoverflow.com/questions/7761032/messed-up-option-in-select-tag-when-value-contains-more-than-one-word -->
+                <option value="{{school}}"> {{school}} </option>
+            {% endfor %}
+        </select>
+
+        <!-- source: https://www.w3schools.com/html/html_paragraphs.asp -->
+        <br></br>
+
+        <!-- source for email type: https://getbootstrap.com/docs/4.0/components/forms/ -->
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="email" placeholder="Email" type="email" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Password (again)" type="password" required>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+
+    <script>
+        document.querySelector('form').onsubmit = function() {
+            // source for using $.get: https://api.jquery.com/jquery.get/
+            // source for using $.get: https://cdn.cs50.net/2018/fall/lectures/7/src7.pdf
+            $.get('/check?user='+ document.querySelector('input').value, function(data) {
+                if (data) {
+                    // source for using submit: https://www.w3schools.com/jsref/met_form_submit.asp
+                    document.querySelector('form').submit();
+                }
+                else {
+                    alert("This username is already taken!")
+                    // source for preventing the form from being submitted: https://www.w3schools.com/jsref/event_preventdefault.asp
+                    document.querySelector('form').addEventListener("submit", function(event) {
+                        event.preventDefault()
+                    });
+                }
+            });
+            return false;
+        };
+
+        // source for codee: https://select2.org/getting-started/basic-usage
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+
+    </script>
+{% endblock %}

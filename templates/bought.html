@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Purchase Successful
+{% endblock %}
+
+{% block main %}
+    <!-- source: https://getbootstrap.com/docs/4.1/components/jumbotron/ -->
+    <div class="jumbotron">
+      <h1 class="display-4">Purchase Sucessful</h1>
+      <p class="lead">You bought {{book["title"]}} for {{book["usd"]}}</p>
+      <hr class="my-4">
+      <p>Thank you for your purchase!</p>
+      <a class="btn btn-primary btn-lg" href="/" role="button">View your books</a>
+    </div>
+{% endblock %}

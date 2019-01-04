@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Books
+{% endblock %}
+
+{% block main %}
+    <!-- source for Bootstrap tables: https://getbootstrap.com/docs/4.0/content/tables/ -->
+    <h1>Your Books On Sale</h1>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Price</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in sell %}
+            <tr>
+                {% for field in ["title", "author", "usd"]%}
+                    <td>{{book[field]}}</td>
+                {% endfor %}
+                <td>
+                  <form action="/removeSell" method="post">
+                    <select style="display: none" name="bookId">
+                      <option type="hidden" value={{book["id"]}} selected></option>
+                    </select>
+                      <button class="btn btn-danger" type="submit">Remove Book</button>
+                  </form>
+                </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h1>Books You've Bought</h1>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Price</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in bought %}
+            <tr>
+                {% for field in ["title", "author", "usd"]%}
+                    <td>{{book[field]}}</td>
+                {% endfor %}
+                <td>
+                  <form action="/returnBook" method="post">
+                    <select style="display: none" name="bookId">
+                      <option type="hidden" value={{book["id"]}} selected></option>
+                    </select>
+                      <button class="btn btn-danger" type="submit">Return Book</button>
+                  </form>
+                </td>
+                <td>
+                  <form action="/contactSeller" method="post">
+                    <select style="display: none" name="bookId">
+                      <option type="hidden" value={{book["id"]}} selected></option>
+                    </select>
+                      <button class="btn btn-success" type="submit">Seller Contact</button>
+                  </form>
+                </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h1>Books You've Sold</h1>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Price</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in sold %}
+            <tr>
+                {% for field in ["title", "author", "usd"]%}
+                    <td>{{book[field]}}</td>
+                {% endfor %}
+                <td>
+                  <form action="/contactBuyer" method="post">
+                    <select style="display: none" name="bookId">
+                      <option type="hidden" value={{book["id"]}} selected></option>
+                    </select>
+                      <button class="btn btn-success" type="submit">Buyer Contact</button>
+                  </form>
+                </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}

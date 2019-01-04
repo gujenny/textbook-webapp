@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+    <form action="/browse" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="searchInput" placeholder="Title / Author / ISBN" type="text" required>
+        </div>
+        Only show me books within <input type="number" autocomplete="off" autofocus class="form-control" name="distance" placeholder="" required> miles of me
+        <br></br>
+        <button class="btn btn-primary" type="submit" id="search">Search</button>
+    </form>
+{% endblock %}

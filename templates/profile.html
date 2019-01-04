@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <!-- source: http://getbootstrap.com/docs/4.1/components/jumbotron/ -->
+    <div class="jumbotron">
+      <h1 class="display-4">Profile</h1>
+      <p class="lead"><b>Email: </b>{{person["email"]}}</p>
+      <p class="lead"><b>School: </b>{{person["college"]}}</p>
+      <p class="lead"><b>Username: </b>{{person["user"]}}</p>
+      <a class="btn btn-primary btn-lg" href="/" role="button">My Books</a>
+    </div>
+{% endblock %}

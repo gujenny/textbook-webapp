@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block main %}
+    {% for book in books %}
+        <!-- source on using Bootstrap cards: http://getbootstrap.com/docs/4.1/components/card/ -->
+        <div class="card" style="width: 18rem; center">
+          {% if book['cover'] %}
+            <img class="card-img-top" src="/static/cover/{{book['cover']}}" alt="Card image cap">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{book["title"]}}</h5>
+            <p class="card-text">Author(s): {{book["author"]}}</p>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush center">
+          <li class="list-group-item"><b>{{book["usd"]}}</b></li>
+          <li class="list-group-item"><b>Condition: </b>{{book["quality"]}}</li>
+          <li class="list-group-item"><b>School: </b>{{book["school"]}}</li>
+        </ul>
+        <form action="/buy" method="post">
+          <!-- source to hide select: https://www.techwalla.com/articles/how-to-hidden-select-box-in-html -->
+          <select style="display: none" name="bookId">
+            <option type="hidden" value={{book["id"]}} selected></option>
+          </select>
+            <!-- source for Bootstrap buttons: https://getbootstrap.com/docs/4.0/components/buttons/ -->
+            <button class="btn btn-success" type="submit">Buy Book</button>
+        </form>
+      <br>
+    {% endfor %}
+{% endblock %}
